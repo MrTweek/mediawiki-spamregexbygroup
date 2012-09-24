@@ -3,6 +3,7 @@
 /**********************************************************
     SpamRegexByGroup
     Allow different Spam Blacklists per Group
+    Author: Philipp Gruber <philipp.gruber@flupps.net>
  **********************************************************/
 
 $wgExtensionCredits['antispam'][] = array(
@@ -11,7 +12,7 @@ $wgExtensionCredits['antispam'][] = array(
     'author' => 'Philipp Gruber', 
     'url' => '', 
     'description' => 'Define different spamRegex values per group',
-    'version'  => 0.1,
+    'version'  => '1.0',
 );
 
 $wgHooks['ArticleSave'][] = 'efSpamRegexByGroup';
@@ -29,8 +30,6 @@ function efSpamRegexByGroup(&$article, &$user, &$text, &$summary, $minor, $watch
             $uregex = $regex;
     }
 
-    file_put_contents('/tmp/srbp.log', "$uregex\n=====\n$text");
-   
     if ($uregex)
         if (preg_match($uregex, $text))
             return false;
