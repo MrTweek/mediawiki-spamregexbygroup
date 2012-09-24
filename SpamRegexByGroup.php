@@ -17,6 +17,8 @@ $wgExtensionCredits['antispam'][] = array(
 $wgHooks['ArticleSave'][] = 'efSpamRegexByGroup';
 
 function efSpamRegexByGroup(&$article, &$user, &$text, &$summary, $minor, $watch, $sectionanchor, &$flags) {
+    global $wgSpamRegexGroup;
+
     if (!isset($wgSpamRegexGroup) || !is_array($wgSpamRegexGroup))
         return true;
 
@@ -27,7 +29,7 @@ function efSpamRegexByGroup(&$article, &$user, &$text, &$summary, $minor, $watch
             $uregex = $regex;
     }
 
-    file_put_contents('/tmp/srbp.log', $uregex);
+    file_put_contents('/tmp/srbp.log', "$uregex\n=====\n$text");
    
     if ($uregex)
         if (preg_match($uregex, $text))
