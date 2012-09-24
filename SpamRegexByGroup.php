@@ -17,6 +17,7 @@ $wgExtensionCredits['antispam'][] = array(
 $wgHooks['ArticleSave'][] = 'efSpamRegexByGroup';
 
 function efSpamRegexByGroup(&$article, &$user, &$text, &$summary, $minor, $watch, $sectionanchor, &$flags) {
+    echo "User: $user<br />\n";
     return true;
 }
 
