@@ -26,6 +26,8 @@ function efSpamRegexByGroup(&$article, &$user, &$text, &$summary, $minor, $watch
         if (in_array($group, $user->mEffectiveGroups))
             $uregex = $regex;
     }
+
+    file_put_contents('/tmp/srbp.log', $uregex);
    
     if ($uregex)
         if (preg_match($uregex, $text))
